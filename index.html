@@ -3,63 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine?</title>
+    <title>Be My Valentine? ❤️</title>
     <style>
         body {
-            background-color: #ffb6c1; /* Pink */
-            background-image: radial-gradient(#ff85a1 10%, transparent 10%), radial-gradient(#ff85a1 10%, transparent 10%);
-            background-size: 50px 50px;
-            background-position: 0 0, 25px 25px;
+            background-color: #ffb6c1;
+            margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* Falling Hearts Animation */
+        .heart-particle {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            top: -20px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
         }
 
         #proposal-container, #success-container {
+            position: relative;
+            z-index: 10;
             text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 80%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.3);
+            border: 4px solid #ff4d6d;
         }
 
-        h1 { color: #d63384; margin-bottom: 30px; }
+        h1 { color: #d63384; font-size: 2.5rem; }
 
         .buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            height: 60px; /* Space for buttons */
+            gap: 30px;
+            margin-top: 20px;
         }
 
         button {
-            padding: 15px 35px;
-            font-size: 1.2rem;
+            padding: 15px 40px;
+            font-size: 1.5rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
             font-weight: bold;
+            transition: all 0.2s ease;
         }
 
-        #yes-btn { background-color: #ff4d6d; color: white; }
-        #yes-btn:hover { transform: scale(1.1); background-color: #ff1f4b; }
+        #yes-btn {
+            background-color: #ff4d6d;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
 
-        #no-btn { 
-            background-color: white; 
-            color: #ff4d6d; 
-            position: absolute; /* Needed for the "runaway" effect */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #no-btn {
+            background-color: #ffffff;
+            color: #ff4d6d;
+            border: 2px solid #ff4d6d;
+            position: absolute;
         }
 
         iframe {
             border-radius: 20px;
-            border: 5px solid #ff4d6d;
-            margin-top: 20px;
+            border: 8px solid #ff4d6d;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -75,7 +102,7 @@
 
     <div id="success-container" style="display: none;">
         <h1>WOW REALLY?! Enjoy this compilation! 💖</h1>
-        <iframe id="drive-video" width="640" height="360" src="" allow="autoplay"></iframe>
+        <iframe id="drive-video" width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
     <script>
@@ -85,25 +112,38 @@
         const success = document.getElementById('success-container');
         const iframe = document.getElementById('drive-video');
 
-        // 1. YOUR GOOGLE DRIVE ID GOES HERE
+        // 1. YOUR GOOGLE DRIVE ID HERE
         const fileID = '1bkGhFoFsTedf72TgemvGEeheXi2nkABc'; 
 
-        // 2. RUNAWAY BUTTON LOGIC
+        // 2. RUNAWAY BUTTON
         noBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         });
 
-        // 3. SUCCESS LOGIC
+        // 3. SHOW VIDEO ON YES
         yesBtn.addEventListener('click', () => {
             proposal.style.display = 'none';
             success.style.display = 'block';
-            // Sets the source only after they click Yes so it starts fresh
             iframe.src = `https://drive.google.com/file/d/${fileID}/preview?autoplay=1`;
         });
+
+        // 4. FALLING HEARTS GENERATOR
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        setInterval(createHeart, 300);
     </script>
 </body>
 </html>
