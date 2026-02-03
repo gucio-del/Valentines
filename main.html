@@ -1,63 +1,109 @@
-<div id="proposal-container">
-  <h1>Will you be my Valentine? ❤️</h1>
-  <div class="buttons">
-    <button id="yes-btn" class="rounded">Yes</button>
-    <button id="no-btn" class="rounded">No</button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            background-color: #ffb6c1; /* Pink */
+            background-image: radial-gradient(#ff85a1 10%, transparent 10%), radial-gradient(#ff85a1 10%, transparent 10%);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+        }
 
-<div id="success-container" style="display: none;">
-  <h1>WOW REALLY?!</h1>
-  <h2>You're the best and I hope you enjoy your gifts hehe</h2>
-  <video id="celebration-video" width="80%" controls>
-    <source src="Tabbys Valentines Gift.mp4" type="video/mp4">
-  </video>
-</div>
-<style>
-    body {
-  background-color: #ffb6c1; /* Light Pink */
-  background-image: url('hearts-pattern.png'); /* Add a heart pattern here */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  font-family: 'Comic Sans MS', cursive; /* For a cute feel */
-}
+        #proposal-container, #success-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 80%;
+        }
 
-.rounded {
-  padding: 15px 30px;
-  border-radius: 50px; /* Makes them pill-shaped */
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
+        h1 { color: #d63384; margin-bottom: 30px; }
 
-#yes-btn { background-color: #ff4d6d; color: white; }
-#no-btn { background-color: #ffffff; color: #ff4d6d; position: absolute; }
-</style>
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px; /* Space for buttons */
+        }
 
-<script>
-    const noBtn = document.getElementById('no-btn');
-const yesBtn = document.getElementById('yes-btn');
-const proposalContainer = document.getElementById('proposal-container');
-const successContainer = document.getElementById('success-container');
-const video = document.getElementById('celebration-video');
+        button {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-weight: bold;
+        }
 
-// The "No" button move logic
-noBtn.addEventListener('mouseover', () => {
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-  
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-});
+        #yes-btn { background-color: #ff4d6d; color: white; }
+        #yes-btn:hover { transform: scale(1.1); background-color: #ff1f4b; }
 
-// The "Yes" button click logic
-yesBtn.addEventListener('click', () => {
-  proposalContainer.style.display = 'none';
-  successContainer.style.display = 'block';
-  video.play();
-});
-</script>
+        #no-btn { 
+            background-color: white; 
+            color: #ff4d6d; 
+            position: absolute; /* Needed for the "runaway" effect */
+        }
+
+        iframe {
+            border-radius: 20px;
+            border: 5px solid #ff4d6d;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="proposal-container">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="buttons">
+            <button id="yes-btn">YES!</button>
+            <button id="no-btn">No</button>
+        </div>
+    </div>
+
+    <div id="success-container" style="display: none;">
+        <h1>WOW REALLY?! Enjoy this compilation! 💖</h1>
+        <iframe id="drive-video" width="640" height="360" src="" allow="autoplay"></iframe>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const proposal = document.getElementById('proposal-container');
+        const success = document.getElementById('success-container');
+        const iframe = document.getElementById('drive-video');
+
+        // 1. YOUR GOOGLE DRIVE ID GOES HERE
+        const fileID = 'YOUR_FILE_ID_HERE'; 
+
+        // 2. RUNAWAY BUTTON LOGIC
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // 3. SUCCESS LOGIC
+        yesBtn.addEventListener('click', () => {
+            proposal.style.display = 'none';
+            success.style.display = 'block';
+            // Sets the source only after they click Yes so it starts fresh
+            iframe.src = `https://drive.google.com/file/d/${fileID}/preview?autoplay=1`;
+        });
+    </script>
+</body>
+</html>
