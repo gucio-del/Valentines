@@ -102,7 +102,10 @@
 
     <div id="success-container" style="display: none;">
         <h1>WOW REALLY?! Enjoy this compilation! 💖</h1>
-        <iframe id="drive-video" width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe id="drive-video" width="560" height="315" 
+        src="https://drive.google.com/file/d/1bkGhFoFsTedf72TgemvGEeheXi2nkABc/preview" 
+        style="opacity: 0; position: absolute; pointer-events: none;">
+        </iframe>
     </div>
 
     <script>
@@ -117,8 +120,8 @@
 
         // 2. RUNAWAY BUTTON
         noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50 );
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50 );
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         });
