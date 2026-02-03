@@ -129,15 +129,26 @@
 
         // 1. YOUR YOUTUBE VIDEO ID
         // If your link is youtube.com/watch?v=dQw4w9WgXcQ, the ID is dQw4w9WgXcQ
-        const videoID = 'YOUR_VIDEO_ID_HERE'; 
+        const videoID = 'f685GrZuUUQ'; 
 
         // 2. RUNAWAY BUTTON LOGIC
         noBtn.addEventListener('mouseover', () => {
-            noBtn.style.position = 'absolute';
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+        // 1. Make it absolute so it can move
+        noBtn.style.position = 'fixed'; // 'fixed' is better for keeping it on screen
+    
+        // 2. Calculate the safe zone (screen size minus button size and some padding)
+        const padding = 100;
+        const maxWidth = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxHeight = window.innerHeight - noBtn.offsetHeight - padding;
+    
+        // 3. Generate random spots within that safe zone
+        // We use Math.max to ensure the number isn't negative
+        const randomX = Math.max(padding, Math.floor(Math.random() * maxWidth));
+        const randomY = Math.max(padding, Math.floor(Math.random() * maxHeight));
+    
+        // 4. Apply the new coordinates
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
         });
 
         // 3. SHOW VIDEO ON YES
@@ -145,7 +156,7 @@
             proposal.style.display = 'none';
             success.style.display = 'block';
             // Autoplay is added to the URL here
-            iframe.src = `https://youtu.be/f685GrZuUUQ`;
+            iframe.src = `https://www.youtube.com/embed/${videoID}?autoplay=1&rel=0`;
         });
 
         // 4. FALLING HEARTS
