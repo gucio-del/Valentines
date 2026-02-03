@@ -1,0 +1,63 @@
+<div id="proposal-container">
+  <h1>Will you be my Valentine? ❤️</h1>
+  <div class="buttons">
+    <button id="yes-btn" class="rounded">Yes</button>
+    <button id="no-btn" class="rounded">No</button>
+  </div>
+</div>
+
+<div id="success-container" style="display: none;">
+  <h1>WOW REALLY?!</h1>
+  <h2>You're the best and I hope you enjoy your gifts hehe</h2>
+  <video id="celebration-video" width="80%" controls>
+    <source src="Tabbys Valentines Gift.mp4" type="video/mp4">
+  </video>
+</div>
+<style>
+    body {
+  background-color: #ffb6c1; /* Light Pink */
+  background-image: url('hearts-pattern.png'); /* Add a heart pattern here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Comic Sans MS', cursive; /* For a cute feel */
+}
+
+.rounded {
+  padding: 15px 30px;
+  border-radius: 50px; /* Makes them pill-shaped */
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#yes-btn { background-color: #ff4d6d; color: white; }
+#no-btn { background-color: #ffffff; color: #ff4d6d; position: absolute; }
+</style>
+
+<script>
+    const noBtn = document.getElementById('no-btn');
+const yesBtn = document.getElementById('yes-btn');
+const proposalContainer = document.getElementById('proposal-container');
+const successContainer = document.getElementById('success-container');
+const video = document.getElementById('celebration-video');
+
+// The "No" button move logic
+noBtn.addEventListener('mouseover', () => {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+});
+
+// The "Yes" button click logic
+yesBtn.addEventListener('click', () => {
+  proposalContainer.style.display = 'none';
+  successContainer.style.display = 'block';
+  video.play();
+});
+</script>
